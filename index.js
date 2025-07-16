@@ -4,16 +4,19 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = 3000;
-const db = new pg.Client({
+const port = process.env.PORT || 3000;
+
+
+const db = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
+  max: 10,
+  min: 2,
+  idleTimeoutMillis: 30000,
 });
-
-db.connect();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,8 +24,8 @@ app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
   try {
-    const result=await db.query("SELECT * FROM items ORDER BY id ASC");
-    let items=result.rows;
+    const result = await db.query("SELECT * FROM items ORDER BY id ASC");
+    let items = result.rows;
     res.render("index.ejs", {
       listTitle: "ToDo-List",
       listItems: items,
