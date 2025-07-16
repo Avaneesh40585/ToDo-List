@@ -21,6 +21,7 @@ const db = new pg.Pool({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.set('view engine', 'ejs');
 
 app.get("/", async (req, res) => {
   try {
@@ -64,6 +65,12 @@ app.post("/delete", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+process.on('SIGINT', async () => {
+  console.log('Shutting down gracefully...');
+  await db.end();
+  process.exit(0);
 });
 
 app.listen(port, () => {
