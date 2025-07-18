@@ -151,7 +151,10 @@ psql -U your_username -d your_database -f queries.sql
 ```
 nodemon index.js
 ```
-6.	Open your browser and visit: http://localhost:3000
+6.	Open your browser and visit: 
+```
+http://localhost:3000
+```
 
 ---
 
