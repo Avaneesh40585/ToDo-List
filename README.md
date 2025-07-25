@@ -5,6 +5,7 @@ A modern, full-stack ToDo List application built with Node.js, Express, PostgreS
 ## Table of Contents
 
 - [Features](#features)
+- [Demo](#demo)
 - [Folder Structure](#folder-structure)
 - [How It Works](#how-it-works)
 - [Dependencies](#dependencies)
@@ -15,6 +16,11 @@ A modern, full-stack ToDo List application built with Node.js, Express, PostgreS
 - [Best Practices Implemented](#best-practices-implemented)
 - [Contributing](#contributing)
 - [License](#license)
+
+---
+## Demo
+
+![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
 
 ---
 
