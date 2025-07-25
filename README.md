@@ -18,11 +18,6 @@ A modern, full-stack ToDo List application built with Node.js, Express, PostgreS
 - [License](#license)
 
 ---
-## Demo
-
-![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
-
----
 
 ## Features
 
@@ -35,6 +30,11 @@ A modern, full-stack ToDo List application built with Node.js, Express, PostgreS
 - **Parameterized Queries:** SQL injection protection with prepared statements
 - **Graceful Shutdown:** Proper cleanup of database connections on app termination
 - **Environment Variables:** Secure configuration management with dotenv
+
+---
+## Demo
+
+![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
 
 ---
 
