@@ -16,12 +16,34 @@ const db = new pg.Pool({
   max: 10,
   min: 2,
   idleTimeoutMillis: 30000,
+
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  max: 10,
+  min: 2,
+  idleTimeoutMillis: 30000,
 });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
+
+// Health check endpoint for Render
+app.get("/health", async (req, res) => {
+  try {
+    await db.query("SELECT 1");
+    res.status(200).json({ 
+      status: "healthy", 
+      timestamp: new Date().toISOString(),
+      database: "connected"
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: "unhealthy", 
+      error: error.message 
+    });
+  }
+});
 
 app.get("/", async (req, res) => {
   try {
