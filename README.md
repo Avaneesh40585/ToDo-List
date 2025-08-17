@@ -35,7 +35,6 @@ A modern, full-stack ToDo List application built with Node.js, Express, PostgreS
 ## Demo
 
 - **[Launch The App!](https://todo-list-app-gllq.onrender.com/)** — Deployed and hosted on Render.
-- **(Status: Currently Inactive / Suspended)**
 
 ![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
 
