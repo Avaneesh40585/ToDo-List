@@ -39,18 +39,3 @@ services:
           property: password
       - key: DB_PORT
         value: "5432"
-    
-    initialDeployHook: |
-      echo "Initializing database..."
-      export PGPASSWORD="$DB_PASSWORD"
-      psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" << 'EOF'
-      CREATE TABLE IF NOT EXISTS items (
-        id SERIAL PRIMARY KEY,
-        title VARCHAR(200) NOT NULL
-      );
-      
-      INSERT INTO items (title) 
-      SELECT unnest(ARRAY['Buy milk', 'Finish homework'])
-      WHERE NOT EXISTS (SELECT 1 FROM items LIMIT 1);
-      EOF
-      echo "Database initialization complete!"
