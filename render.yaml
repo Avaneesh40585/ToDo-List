@@ -1,11 +1,9 @@
-# render.yaml
 databases:
   - name: todo-db
     databaseName: todo_list_production
     user: todo_user
     region: oregon
     plan: free
-    postgresMajorVersion: 15
 
 services:
   - type: web
@@ -15,24 +13,14 @@ services:
     plan: free
     branch: main
     
-    # Build and start commands
-    buildCommand: npm install
+    buildCommand: npm ci
     startCommand: npm start
-    
-    # Health check endpoint (you'll need to add this)
     healthCheckPath: /health
-    
-    # Auto-deploy on push
     autoDeploy: true
     
-    # Environment variables
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
-      
-      # Database connection - using individual variables as per your code
       - key: DB_HOST
         fromDatabase:
           name: todo-db
@@ -50,21 +38,19 @@ services:
           name: todo-db
           property: password
       - key: DB_PORT
-        fromDatabase:
-          name: todo-db
-          property: port
+        value: "5432"
     
-    # Initialize database with your schema
     initialDeployHook: |
-      echo "Setting up database..."
-      PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -c "
+      echo "Initializing database..."
+      export PGPASSWORD="$DB_PASSWORD"
+      psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" << 'EOF'
       CREATE TABLE IF NOT EXISTS items (
         id SERIAL PRIMARY KEY,
         title VARCHAR(200) NOT NULL
       );
       
       INSERT INTO items (title) 
-      SELECT * FROM (VALUES ('Buy milk'), ('Finish homework')) AS v(title)
+      SELECT unnest(ARRAY['Buy milk', 'Finish homework'])
       WHERE NOT EXISTS (SELECT 1 FROM items LIMIT 1);
-      "
-      echo "Database setup complete!"
+      EOF
+      echo "Database initialization complete!"
