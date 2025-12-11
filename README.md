@@ -112,13 +112,13 @@ Development dependencies:
 ### **Installation Steps**
 
 1. **Clone the repository:**
-```
+```bash
 git clone https://github.com/Avaneesh40585/ToDo-List.git
 cd ToDo-List
 ```
 
 2. **Install dependencies:**
-```
+```bash
 npm install
 ```
 
@@ -147,13 +147,13 @@ PORT=3000
 ```
 
 4. **Set up the database:**
-```
+```bash
 # Connect to PostgreSQL and run the queries.sql file
 psql -U your_username -d your_database -f queries.sql
 ```
 
 5. **Start the application:**
-```
+```bash
 nodemon index.js
 ```
 6.	Open your browser and visit: 
