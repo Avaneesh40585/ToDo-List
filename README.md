@@ -1,41 +1,35 @@
 # ToDo-List App 📋
 
-A modern, full-stack ToDo List application built with Node.js, Express, PostgreSQL, and EJS. This project demonstrates clean server-side architecture, database management, and dynamic web templating with a focus on simplicity and maintainability.
+A full-stack ToDo List app I built with Node.js, Express, PostgreSQL, and EJS. It lets you add, edit, and delete tasks with data stored in a PostgreSQL database. Focused on learning backend routing, database queries, and server-side templating.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Demo](#demo)
+- [Visual Demo](#visual-demo)
 - [Folder Structure](#folder-structure)
 - [How It Works](#how-it-works)
 - [Dependencies](#dependencies)
 - [Installation & Usage](#installation--usage)
-- [Database Setup](#database-setup)
-- [Environment Configuration](#environment-configuration)
-- [API Endpoints](#api-endpoints)
-- [Best Practices Implemented](#best-practices-implemented)
+- [Customization & Extensions](#customization--extensions)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
 ## Features
 
-- **Add Tasks:** Create new todo items with a simple form interface
-- **Edit Tasks:** Update existing task titles inline
-- **Delete Tasks:** Remove completed or unwanted tasks instantly
-- **Persistent Storage:** All data stored securely in PostgreSQL database
-- **Clean UI:** Responsive design with EJS templating
-- **Database Connection Pooling:** Efficient connection management for optimal performance
-- **Parameterized Queries:** SQL injection protection with prepared statements
-- **Graceful Shutdown:** Proper cleanup of database connections on app termination
-- **Environment Variables:** Secure configuration management with dotenv
+- **Add tasks:** Create new todo items with a form.  
+- **Edit tasks:** Update existing task titles.  
+- **Delete tasks:** Remove tasks you no longer need.  
+- **PostgreSQL storage:** All tasks are saved in a PostgreSQL database.  
+- **EJS UI:** Server-rendered UI with EJS templates.  
+- **Connection pooling:** Uses a database pool for better performance.  
+- **Parameterized queries:** Protects against SQL injection.  
+- **Graceful shutdown:** Closes database connections on exit.  
+- **Env-based config:** Uses environment variables via dotenv.
+
 
 ---
-## Demo
-
-- **[Launch The App!](https://todo-list-app-gllq.onrender.com/)** — Deployed and hosted on Render.
-- **(Status: Currently Inactive / Suspended)**
+## Visual Demo
 
 ![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
 
@@ -74,24 +68,13 @@ The app starts by loading environment variables and establishing a PostgreSQL co
 ### **3. Route Handling**
 The application provides four main routes:
 
-**GET /** - Homepage that displays all todos
-- Queries database for all items ordered by ID
-- Renders the main view with todo list data
+| Method | Endpoint | What it does | Details |
+|--------|----------|--------------|---------|
+| **GET** | `/` | Show all todos | Queries the database for all items ordered by ID and renders the main view with the todo list data. |
+| **POST** | `/add` | Create a new todo | Accepts form data, inserts a new item into the database using parameterized queries, then redirects back to the homepage. |
+| **POST** | `/edit` | Update a todo | Receives the item ID and new title from the edit form, updates the specific record in the database, and keeps data consistent. |
+| **POST** | `/delete` | Delete a todo | Accepts the item ID, removes the record from the database, and the updated list is shown on the homepage. |
 
-**POST /add** - Creates new todo items
-- Accepts form data from the client
-- Inserts new items into the database using parameterized queries
-- Redirects back to homepage
-
-**POST /edit** - Updates existing todo items
-- Receives item ID and new title from edit form
-- Updates specific record in database
-- Maintains data integrity with transaction safety
-
-**POST /delete** - Removes todo items
-- Accepts item ID for deletion
-- Removes record from database
-- Automatically updates the displayed list
 
 ### **4. Template Rendering**
 - **EJS templating engine** renders dynamic HTML
@@ -140,7 +123,19 @@ npm install
 ```
 
 3. **Set up environment variables:**
-Create a `.env` file in the root directory:
+
+Required environment variables:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `DB_USER` | PostgreSQL username | `postgres` |
+| `DB_HOST` | Database host address | `localhost` |
+| `DB_NAME` | Database name | `todolist` |
+| `DB_PASSWORD` | Database password | `yourpassword` |
+| `DB_PORT` | PostgreSQL port | `5432` |
+| `PORT` | Application port | `3000` |
+
+So we create a `.env` file in the root directory:
 ```
 DB_USER=your_database_user
 DB_HOST=localhost
@@ -167,66 +162,13 @@ http://localhost:3000
 
 ---
 
-## Database Setup
+## Customization & Extensions
 
-The application uses PostgreSQL with the following schema:
-```
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL
-);
-```
-
-**Key Features:**
-- **SERIAL ID:** Auto-incrementing primary key
-- **VARCHAR title:** Task description with reasonable length limit
-- **Proper indexing:** Optimized for common queries
-
----
-
-## Environment Configuration
-
-Required environment variables:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DB_USER` | PostgreSQL username | `postgres` |
-| `DB_HOST` | Database host address | `localhost` |
-| `DB_NAME` | Database name | `todolist` |
-| `DB_PASSWORD` | Database password | `yourpassword` |
-| `DB_PORT` | PostgreSQL port | `5432` |
-| `PORT` | Application port | `3000` |
-
----
-
-## API Endpoints
-
-| Method | Endpoint | Description | Request Body |
-|--------|----------|-------------|--------------|
-| `GET` | `/` | Display all todos | None |
-| `POST` | `/add` | Create new todo | `{ newItem: "Task description" }` |
-| `POST` | `/edit` | Update existing todo | `{ updatedItemId: "1", updatedItemTitle: "New title" }` |
-| `POST` | `/delete` | Delete todo | `{ deleteItemId: "1" }` |
-
----
-
-## Best Practices Implemented
-
-### **Security**
-- **Parameterized queries** prevent SQL injection attacks
-- **Environment variables** protect sensitive database credentials
-- **Input validation** ready for implementation
-
-### **Performance**
-- **Connection pooling** for efficient database resource management
-- **Minimal dependencies** for faster startup and reduced attack surface
-- **Proper connection cleanup** prevents memory leaks
-
-### **Code Quality**
-- **Modern ES6+ syntax** with import/export statements
-- **Separation of concerns** with organized route handling
-- **Error handling** with comprehensive try-catch blocks
-- **Consistent naming conventions** throughout the codebase
+- Tweak the layout and styles in `views/` and `public/` to match your own design.
+- Add fields like due dates, priority, or tags by updating the schema and EJS templates.
+- Implement search, filters (completed/pending), or sorting in your routes and views.
+- Add basic auth so each user has their own todo list.
+- Expose JSON endpoints so you can later plug in a React or Next.js frontend.
 
 ---
 
@@ -242,14 +184,4 @@ Contributions, issues, and feature requests are welcome!
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
-
----
-
-**Happy task managing! 🚀**
-
-
-
-
+**Enjoy the ToDo-List App!**  
