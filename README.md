@@ -124,19 +124,20 @@ npm install
 
 3. **Set up environment variables:**
 
-Required environment variables:
+- Required environment variables:
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DB_USER` | PostgreSQL username | `postgres` |
-| `DB_HOST` | Database host address | `localhost` |
-| `DB_NAME` | Database name | `todolist` |
-| `DB_PASSWORD` | Database password | `yourpassword` |
-| `DB_PORT` | PostgreSQL port | `5432` |
-| `PORT` | Application port | `3000` |
+| Variable   | Description             | Example       |
+|-----------|-------------------------|---------------|
+| `DB_USER` | PostgreSQL username     | `postgres`    |
+| `DB_HOST` | Database host address   | `localhost`   |
+| `DB_NAME` | Database name           | `todolist`    |
+| `DB_PASSWORD` | Database password   | `yourpassword`|
+| `DB_PORT` | PostgreSQL port         | `5432`        |
+| `PORT`    | Application port        | `3000`        |
 
-So we create a `.env` file in the root directory:
-```
+- Create a `.env` file in the root directory:
+
+```env
 DB_USER=your_database_user
 DB_HOST=localhost
 DB_NAME=your_database_name
