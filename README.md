@@ -17,18 +17,18 @@ A full-stack ToDo List app I built with Node.js, Express, PostgreSQL, and EJS. I
 
 ## Features
 
-- **Add tasks:** Create new todo items with a form.  
-- **Edit tasks:** Update existing task titles.  
-- **Delete tasks:** Remove tasks you no longer need.  
-- **PostgreSQL storage:** All tasks are saved in a PostgreSQL database.  
-- **EJS UI:** Server-rendered UI with EJS templates.  
-- **Connection pooling:** Uses a database pool for better performance.  
-- **Parameterized queries:** Protects against SQL injection.  
-- **Graceful shutdown:** Closes database connections on exit.  
+- **Add tasks:** Create new todo items with a form.
+- **Edit tasks:** Update existing task titles.
+- **Delete tasks:** Remove tasks you no longer need.
+- **PostgreSQL storage:** All tasks are saved in a PostgreSQL database.
+- **EJS UI:** Server-rendered UI with EJS templates.
+- **Connection pooling:** Uses a database pool for better performance.
+- **Parameterized queries:** Protects against SQL injection.
+- **Graceful shutdown:** Closes database connections on exit.
 - **Env-based config:** Uses environment variables via dotenv.
 
-
 ---
+
 ## Visual Demo
 
 ![ToDo-List Demo](https://github.com/user-attachments/assets/42575df0-be7a-4e50-857b-a42390ce6e30)
@@ -36,6 +36,7 @@ A full-stack ToDo List app I built with Node.js, Express, PostgreSQL, and EJS. I
 ---
 
 ## Folder Structure
+
 ```
 ToDo-List/
 ├── index.js              # Main server file with Express routes
@@ -53,35 +54,40 @@ ToDo-List/
     └── assets/
         └── icons/        # SVG icons for UI elements
 ```
+
 ---
 
 ## How It Works
 
 ### **1. Application Initialization**
+
 The app starts by loading environment variables and establishing a PostgreSQL connection pool with optimized settings for concurrent connections.
 
 ### **2. Database Connection Management**
+
 - Uses **pg.Pool** for efficient connection pooling
 - Configured with min/max connections, idle timeout, and connection limits
 - Implements graceful shutdown to properly close database connections
 
 ### **3. Route Handling**
+
 The application provides four main routes:
 
-| Method | Endpoint | What it does | Details |
-|--------|----------|--------------|---------|
-| **GET** | `/` | Show all todos | Queries the database for all items ordered by ID and renders the main view with the todo list data. |
-| **POST** | `/add` | Create a new todo | Accepts form data, inserts a new item into the database using parameterized queries, then redirects back to the homepage. |
-| **POST** | `/edit` | Update a todo | Receives the item ID and new title from the edit form, updates the specific record in the database, and keeps data consistent. |
-| **POST** | `/delete` | Delete a todo | Accepts the item ID, removes the record from the database, and the updated list is shown on the homepage. |
-
+| Method   | Endpoint  | What it does      | Details                                                                                                                        |
+| -------- | --------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **GET**  | `/`       | Show all todos    | Queries the database for all items ordered by ID and renders the main view with the todo list data.                            |
+| **POST** | `/add`    | Create a new todo | Accepts form data, inserts a new item into the database using parameterized queries, then redirects back to the homepage.      |
+| **POST** | `/edit`   | Update a todo     | Receives the item ID and new title from the edit form, updates the specific record in the database, and keeps data consistent. |
+| **POST** | `/delete` | Delete a todo     | Accepts the item ID, removes the record from the database, and the updated list is shown on the homepage.                      |
 
 ### **4. Template Rendering**
+
 - **EJS templating engine** renders dynamic HTML
 - Partials system for reusable components (header/footer)
 - Server-side rendering for SEO optimization
 
 ### **5. Error Handling**
+
 - Comprehensive try-catch blocks for database operations
 - Proper error logging for debugging
 - Graceful error recovery without app crashes
@@ -98,6 +104,7 @@ Essential packages for this full-stack application:
 - [`dotenv`](https://github.com/motdotla/dotenv) - Loads environment variables from .env file
 
 Development dependencies:
+
 - [`nodemon`](https://nodemon.io/) - Automatic server restart during development
 
 ---
@@ -105,6 +112,7 @@ Development dependencies:
 ## Installation & Usage
 
 ### **Prerequisites**
+
 - Node.js (v16 or newer recommended)
 - PostgreSQL (v12 or newer)
 - npm (v8+) or yarn
@@ -112,12 +120,14 @@ Development dependencies:
 ### **Installation Steps**
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/Avaneesh40585/ToDo-List.git
 cd ToDo-List
 ```
 
 2. **Install dependencies:**
+
 ```bash
 npm install
 ```
@@ -126,14 +136,14 @@ npm install
 
 - Required environment variables:
 
-| Variable   | Description             | Example       |
-|-----------|-------------------------|---------------|
-| `DB_USER` | PostgreSQL username     | `postgres`    |
-| `DB_HOST` | Database host address   | `localhost`   |
-| `DB_NAME` | Database name           | `todolist`    |
-| `DB_PASSWORD` | Database password   | `yourpassword`|
-| `DB_PORT` | PostgreSQL port         | `5432`        |
-| `PORT`    | Application port        | `3000`        |
+| Variable      | Description           | Example        |
+| ------------- | --------------------- | -------------- |
+| `DB_USER`     | PostgreSQL username   | `postgres`     |
+| `DB_HOST`     | Database host address | `localhost`    |
+| `DB_NAME`     | Database name         | `todolist`     |
+| `DB_PASSWORD` | Database password     | `yourpassword` |
+| `DB_PORT`     | PostgreSQL port       | `5432`         |
+| `PORT`        | Application port      | `3000`         |
 
 - Create a `.env` file in the root directory:
 
@@ -147,19 +157,23 @@ PORT=3000
 ```
 
 4. **Set up the database:**
+
 ```bash
-# Connect to PostgreSQL and run the queries.sql file
-psql -U your_username -d your_database -f queries.sql
+# Create the Database first if not created already
+createdb -U postgres secrets
+# Then connect to PostgreSQL and run the queries.sql file
+psql -U postgres -d secrets -f queries.sql
 ```
 
 5. **Start the application:**
+
 ```bash
 nodemon index.js
 ```
-6.	Open your browser and visit: 
-```
-http://localhost:3000
-```
+
+6. **Access the app**
+
+Open `http://localhost:3000` in your browser
 
 ---
 
@@ -185,4 +199,4 @@ Contributions, issues, and feature requests are welcome!
 
 ---
 
-**Enjoy the ToDo-List App!**  
+**Enjoy the ToDo-List App!**
