@@ -150,7 +150,7 @@ npm install
 ```env
 DB_USER=your_database_user
 DB_HOST=localhost
-DB_NAME=your_database_name
+DB_NAME=todolist
 DB_PASSWORD=your_database_password
 DB_PORT=5432
 PORT=3000
@@ -159,16 +159,15 @@ PORT=3000
 4. **Set up the database:**
 
 ```bash
-# Create the Database first if not created already
-createdb -U postgres secrets
-# Then connect to PostgreSQL and run the queries.sql file
-psql -U postgres -d secrets -f queries.sql
+# Create the database (use the same name you set for DB_NAME in .env)
+createdb -U postgres todolist
 ```
+The app will automatically create the `items` table and insert sample data on first startup — no need to run `queries.sql` manually.
 
 5. **Start the application:**
 
 ```bash
-nodemon index.js
+npm run dev
 ```
 
 6. **Access the app**
